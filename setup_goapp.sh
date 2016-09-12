@@ -31,7 +31,7 @@ cd ~/godeploy/files; rm -rf id_rsa.pub id_rsa authorized_keys
 ssh-keygen -t rsa -b 4096 -N "" -f ~/godeploy/files/id_rsa
 cp ~/godeploy/files/id_rsa.pub  ~/godeploy/files/authorized_keys -R
 cp ~/godeploy/files/id_rsa.pub  ~/godeploy/goapp/authorized_keys -R
-cp ~/godeploy/files/id_rsa.pub  ~/godeploy/jenkins/authorized_keys -R
+cp ~/godeploy/files/*  ~/godeploy/jenkins/ -R
 
 
 echo "#run playbook" #run playbook
