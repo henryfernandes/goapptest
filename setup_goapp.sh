@@ -14,7 +14,13 @@ sudo useradd -m -d /home/deployer -s /bin/bash -u 999 -g 9999 deployer
 sudo echo dep123 | passwd deployer --stdin
 
 #sudo mkdir /home/deployer/.ssh
-sudo sed -i '/NOPASSWD/ a deployer	ALL=(ALL)      NOPASSWD: ALL' /etc/sudoers
+if sudo grep -q "deployer" /etc/sudoers
+   then
+     echo "already added to sudoers"
+else 
+      sudo sed -i '/NOPASSWD/ a deployer	ALL=(ALL)      NOPASSWD: ALL' /etc/sudoers
+     echo "not exist"
+fi
 
 sudo su - deployer  <<'EOF'
 echo "#Get godeploy git repo" #Get godeploy git repo
@@ -41,8 +47,8 @@ sed -i "/appserver/a ${host1}" hosts
 sed -i "s/host1/${host1}/g" ~/godeploy/nginx/default.conf
 sed -i "s/host2/${host2}/g" ~/godeploy/nginx/default.conf
 
-sed -i "s/host1/${host1}/g" ~/godeploy/jenkins/Dockerfile
-sed -i "s/host2/${host2}/g" ~/godeploy/jenkins/Dockerfile
+sed -i "s/app1/${host1}/g" ~/godeploy/jenkins/config-goapp.xml
+sed -i "s/app2/${host2}/g" ~/godeploy/jenkins/config-goapp.xml
 
 
 ansible-playbook -i hosts  -c local nginxserver.yml
