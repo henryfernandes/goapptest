@@ -9,8 +9,8 @@ sudo yum install ansible -y
 sudo yum install git -y
 
 #sudo adduser --home /home/deployer --shell /bin/bash deployer
-sudo groupadd -g 9999 -r deployer
-sudo useradd -m -d /home/deployer -s /bin/bash -u 999 -g 9999 deployer
+sudo groupadd -g 1000 -r deployer
+sudo useradd -m -d /home/deployer -s /bin/bash -u 1000 -g 1000 deployer
 sudo echo dep123 | passwd deployer --stdin
 
 #sudo mkdir /home/deployer/.ssh
