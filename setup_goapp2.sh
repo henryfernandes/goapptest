@@ -37,8 +37,12 @@ echo "#run playbook" #run playbook
 cd ~/godeploy2/playbooks/
 ansible-playbook -i hosts  -c local -s localsetup.yml
 
+sleep 10
+
 host1=`sudo docker inspect app1 | grep IPA | grep -v Sec | awk -F"\"" '{print $4}'`;
 host2=`sudo docker inspect app2 | grep IPA | grep -v Sec | awk -F"\"" '{print $4}'`;
+
+echo "$host1 $host2"
 
 sed -i "s/host1/${host1}/g" ~/godeploy2/nginx/default.conf
 sed -i "s/host2/${host2}/g" ~/godeploy2/nginx/default.conf
