@@ -28,20 +28,20 @@ echo "#Get godeploy git repo" #Get godeploy git repo
 git clone https://github.com/henryfernandes/godeploy2.git
 
 echo "Create SSH keys"#Create SSH keys
-cd ~/godeploy/files; rm -rf id_rsa.pub id_rsa authorized_keys
-ssh-keygen -t rsa -b 4096 -N "" -f ~/godeploy/files/id_rsa
-cp ~/godeploy/files/id_rsa.pub  ~/godeploy/goapp/authorized_keys -R
+mkdir -p ~/godeploy2/files; cd ~/godeploy2/files; rm -rf id_rsa.pub id_rsa authorized_keys
+ssh-keygen -t rsa -b 4096 -N "" -f ~/godeploy2/files/id_rsa
+cp ~/godeploy2/files/id_rsa.pub  ~/godeploy2/goapp/authorized_keys -R
 
 
 echo "#run playbook" #run playbook
-cd ~/godeploy/playbooks/
+cd ~/godeploy2/playbooks/
 ansible-playbook -i hosts  -c local -s localsetup.yml
 
 host1=`sudo docker inspect app1 | grep IPA | grep -v Sec | awk -F"\"" '{print $4}'`;
 host2=`sudo docker inspect app2 | grep IPA | grep -v Sec | awk -F"\"" '{print $4}'`;
 
-sed -i "s/host1/${host1}/g" ~/godeploy/nginx/default.conf
-sed -i "s/host2/${host2}/g" ~/godeploy/nginx/default.conf
+sed -i "s/host1/${host1}/g" ~/godeploy2/nginx/default.conf
+sed -i "s/host2/${host2}/g" ~/godeploy2/nginx/default.conf
 
 ansible-playbook -i hosts  -c local nginxserver.yml
 
