@@ -25,7 +25,7 @@ fi
 
 sudo su - deployer  <<'EOF'
 echo "#Get godeploy git repo" #Get godeploy git repo
-git clone https://github.com/henryfernandes/godeploy.git
+git clone https://github.com/henryfernandes/godeploy2.git
 
 echo "Create SSH keys"#Create SSH keys
 cd ~/godeploy/files; rm -rf id_rsa.pub id_rsa authorized_keys
